@@ -20,7 +20,7 @@ public class Sender : MonoBehaviour
     {
         ForceDotNet.Force();
         socket = new PushSocket();
-        socket.Bind("tcp://*:23456");
+        socket.Bind("tcp://192.168.1.175:23456");
         stateStore = new ControllerState(leftController, rightController);
     }
 

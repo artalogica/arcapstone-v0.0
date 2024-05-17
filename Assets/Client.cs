@@ -19,7 +19,8 @@ public class ReceiverOneWay
 {
     private readonly Thread receiveThread;
     private readonly ManualResetEvent stopEvent = new ManualResetEvent(false);
-    //private bool running;
+    //private readonly object lockObj = new object();
+
 
     public ReceiverOneWay()
     {
@@ -81,6 +82,8 @@ public class Client : MonoBehaviour
     private ReceiverOneWay receiver;
     private Texture2D tex;
     public RawImage image;
+    private readonly object lockObj = new object();
+
 
     public void Start()
     {
@@ -91,25 +94,43 @@ public class Client : MonoBehaviour
         // - You might remove it, but if you have more than one socket
         //   in the following threads, leave it.
         receiver = new ReceiverOneWay();
-        receiver.Start((Data d) => runOnMainThread.Enqueue(() =>
-            {   
-                if (d.str != null){
-                    //Debug.Log(d.str);
-                    tex.LoadImage(d.image);
-                }
+        // receiver.Start((Data d) => runOnMainThread.Enqueue(() =>
+        //     {   
+        //         if (d.str != null){
+        //             //Debug.Log(d.str);
+        //             tex.LoadImage(d.image);
+        //         }
                 
+        //     }
+        // ));
+
+        receiver.Start((Data d) =>
+        {
+            lock (lockObj)
+            {
+                runOnMainThread.Enqueue(() =>
+                {
+                    if (d.str != null)
+                    {
+                        //Debug.Log(d.str);
+                        tex.LoadImage(d.image);
+                    }
+
+                });
             }
-        ));
+        });
     }
 
     public void Update()
     {
-        if (!runOnMainThread.IsEmpty)
-        {
-            Action action;
-            while (runOnMainThread.TryDequeue(out action))
+        lock(lockObj){
+            if (!runOnMainThread.IsEmpty)
             {
-                action.Invoke();
+                Action action;
+                while (runOnMainThread.TryDequeue(out action))
+                {
+                    action.Invoke();
+                }
             }
         }
     }

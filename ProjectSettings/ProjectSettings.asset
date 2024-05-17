@@ -835,7 +835,13 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -855,11 +861,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: ad3bf2ef-dba1-405e-a360-8f1a1903c6da
+  cloudProjectId: 4fe4ab47-fdde-4743-a0b3-68eb8025c1ec
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: arcapstone-v0.0 2024-02-27_15-16-32
-  organizationId: number-one-10124074-e3ea-45ef-82b7-88d6a9e849de
+  projectName: robotCamDisplay
+  organizationId: tealsu
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
