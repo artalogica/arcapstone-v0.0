@@ -32,6 +32,8 @@ public class ReceiverOneWay
                 socket.Connect("tcp://172.26.189.111:12345");
                 var timeout = new System.TimeSpan(0, 0, 3); //3sec
 
+                Debug.Log("Connected to server"); 
+
 
                 if(socket != null){
 
